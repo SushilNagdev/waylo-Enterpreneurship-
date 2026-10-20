@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Waylo — Your city. Your route. Your way.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Waylo home"><span class="brand-icon">↗</span><span>waylo<span class="dot">.</span></span></a>
+    <nav>
+      <a href="#planner">Plan a trip</a>
+      <a href="#updates">Live updates</a>
+      <a href="#features">Features</a>
+    </nav>
+    <div class="top-actions">
+      <button class="language" id="textSizeBtn" aria-pressed="false" title="Make text larger">A+</button>
+      <button class="language" id="languageBtn">EN / اردو</button>
+      <button class="avatar" title="Guest profile" aria-label="Guest profile">👤</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <!-- <span class="eyebrow"><span class="pulse"></span> MADE FOR KARACHI</span> -->
+        <h1>Your city.<br /><span>Your route. Your way.</span></h1>
+        <p>Bus routes, estimated fares, and smarter journeys — all in one simple place.</p>
+        <div class="hero-pills"><span>🚌 71 routes</span><span>📍 665 stops</span><span>💚 Built for everyday travel</span></div>
+      </div>
+      <div class="hero-art" aria-label="Illustration of a bus travelling through the city">
+        <div class="sun"></div><div class="cloud cloud-one"></div><div class="cloud cloud-two"></div>
+        <div class="city city-back"><i></i><i></i><i></i><i></i><i></i></div>
+        <svg class="road" viewBox="0 0 500 190" role="img" aria-label="Curved road"><path d="M-10 160 C110 50 190 210 300 105 S430 40 520 75" fill="none" stroke="#d5e5df" stroke-width="58" stroke-linecap="round"/><path d="M-10 160 C110 50 190 210 300 105 S430 40 520 75" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="12 13"/></svg>
+        <div class="bus-illustration"><span class="bus-window"></span><span class="bus-window"></span><span class="bus-window"></span><span class="bus-wheel left"></span><span class="bus-wheel right"></span><span class="bus-front"></span></div>
+        <div class="map-pin pin-one">📍<small>Gulshan</small></div><div class="map-pin pin-two">📍<small>Clifton</small></div>
+      </div>
+    </section>
+
+    <section class="planner-layout" id="planner">
+      <div class="planner-card">
+        <div class="section-heading"><div><span class="eyebrow">LET'S GET YOU THERE</span><h2>Where are you going?</h2></div><span class="heading-emoji">🧭</span></div>
+        <form id="journeyForm">
+          <div class="field-wrap">
+            <label for="from">STARTING POINT</label>
+            <div class="input-row"><span class="field-icon start-icon">●</span><input id="from" list="areaList" autocomplete="off" value="Gulshan-e-Iqbal" placeholder="Where are you now?" required /></div>
+            <button type="button" class="loc-btn" id="useLocation">📍 Use my current location</button>
+            <p class="loc-status" id="locStatus" aria-live="polite"></p><datalist id="areaList"></datalist>
+          </div>
+          <button type="button" class="swap-btn" id="swapBtn" title="Swap start and destination">↕</button>
+          <div class="field-wrap">
+            <label for="to">DESTINATION</label>
+            <div class="input-row"><span class="field-icon end-icon">◆</span><input id="to" list="areaList" autocomplete="off" value="Clifton" placeholder="Where do you want to go?" required /></div>
+          </div>
+          <button type="button" class="voice-btn" id="voiceBtn"><span>🎙️</span> Speak your destination <small>Try voice search</small></button>
+          <p class="voice-status" id="voiceStatus" aria-live="polite">Tip: Say “Gulshan to Clifton”. Voice support depends on your browser.</p>
+          <div class="preference-block">
+            <div class="pref-title">WHAT MATTERS MOST?</div>
+            <div class="choice-row" id="priorityChoices">
+              <button type="button" class="choice active" data-priority="balanced">✨ Best match</button>
+              <button type="button" class="choice" data-priority="cheap">💸 Cheapest</button>
+              <button type="button" class="choice" data-priority="fast">⚡ Fastest</button>
+              <button type="button" class="choice" data-priority="walk">🚶 Less walking</button>
+            </div>
+          </div>
+          <div class="controls-grid">
+            <div class="control-box"><label for="budget">MY MAX BUDGET</label><div class="budget-line"><span>Rs.</span><input id="budget" type="number" min="0" value="100" /><span class="per-trip">per trip</span></div></div>
+            <div class="control-box"><label for="transfers">TRANSFERS</label><select id="transfers"><option value="0">Direct bus only</option><option value="1" selected>Up to 1 transfer</option><option value="2">Up to 2 transfers</option></select></div>
+          </div>
+          <label class="check-row"><input id="lessWalking" type="checkbox" /> <span>Prefer shorter walking distances</span></label>
+          <button class="primary-btn" type="submit">Find my route <span>→</span></button>
+        </form>
+      </div>
+
+      <aside class="map-card">
+        <div class="map-top"><div><span class="eyebrow">YOUR CITY AT A GLANCE</span><h3>Karachi, connected.</h3></div><span class="map-badge">DEMO MAP</span></div>
+        <div class="map-canvas">
+          <div class="map-grid"></div><div class="water"></div>
+          <svg viewBox="0 0 500 400" preserveAspectRatio="none" class="route-map"><path d="M65 310 C105 260 150 300 190 220 S260 175 290 125 S375 95 430 50" fill="none" stroke="#1d9a83" stroke-width="7" stroke-linecap="round"/><path d="M65 310 C105 260 150 300 190 220 S260 175 290 125 S375 95 430 50" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 10"/></svg>
+          <span class="map-stop stop-a"><i></i><b>Gulshan</b></span><span class="map-stop stop-b"><i></i><b>NIPA</b></span><span class="map-stop stop-c"><i></i><b>Saddar</b></span><span class="map-stop stop-d"><i></i><b>Clifton</b></span>
+          <span class="map-bus">🚌</span><span class="map-label">Illustrative route</span>
+        </div>
+        <div class="map-footer"><span><i class="legend-dot"></i> Suggested journey</span><span>Not live GPS</span></div>
+      </aside>
+    </section>
+
+    <section class="results-section" id="results">
+      <div class="results-header"><div><span class="eyebrow">MADE FOR YOUR JOURNEY</span><h2>Routes picked for you <span class="sparkle">✦</span></h2><p id="resultsSubtitle">Here are a few example options from Gulshan-e-Iqbal to Clifton.</p></div><span class="demo-label">SAMPLE RESULTS</span></div>
+      <div class="route-results" id="routeResults">
+        <article class="route-card featured" data-cost="80" data-min="45" data-walk="6" data-transfer="1">
+          <div class="route-card-top"><span class="match-label">✦ BEST MATCH</span><span class="route-time">45–55 min</span></div><h3>Balanced journey</h3><p class="route-desc">A good mix of price, time, and walking.</p>
+          <div class="route-stats"><span>💸 <b>Rs. 80</b> est.</span><span>🔄 <b>1</b> transfer</span><span>🚶 <b>6 min</b> walk</span></div>
+          <div class="mini-journey"><span class="journey-point">Gulshan</span><span class="journey-line"></span><span class="journey-point transfer">NIPA · change bus</span><span class="journey-line"></span><span class="journey-point">Clifton</span></div>
+          <button class="outline-btn details-btn">View step-by-step <span>→</span></button><div class="route-details hidden"><ol><li>Walk to your nearest listed stop.</li><li>Board the first bus towards NIPA.</li><li>At NIPA, change to the connecting bus.</li><li>Get off at the closest available stop to Clifton.</li></ol><small>Sample journey only. Confirm actual routes before travelling.</small></div>
+        </article>
+        <article class="route-card" data-cost="60" data-min="58" data-walk="10" data-transfer="1">
+          <div class="route-card-top"><span class="match-label cheap-label">💚 LOWEST FARE</span><span class="route-time">50–65 min</span></div><h3>Save a little more</h3><p class="route-desc">A budget-friendly example option.</p>
+          <div class="route-stats"><span>💸 <b>Rs. 60</b> est.</span><span>🔄 <b>1</b> transfer</span><span>🚶 <b>10 min</b> walk</span></div>
+          <div class="mini-journey"><span class="journey-point">Gulshan</span><span class="journey-line"></span><span class="journey-point transfer">Saddar · change bus</span><span class="journey-line"></span><span class="journey-point">Clifton</span></div>
+          <button class="outline-btn details-btn">View step-by-step <span>→</span></button><div class="route-details hidden"><ol><li>Walk to the suggested boarding stop.</li><li>Take the first bus towards Saddar.</li><li>Transfer at Saddar to a connecting service.</li><li>Continue to the closest available stop to Clifton.</li></ol><small>Sample journey only. Confirm actual routes before travelling.</small></div>
+        </article>
+        <article class="route-card" data-cost="90" data-min="42" data-walk="2" data-transfer="0">
+          <div class="route-card-top"><span class="match-label walk-label">🚶 LESS WALKING</span><span class="route-time">40–50 min</span></div><h3>Keep walking low</h3><p class="route-desc">An example with less walking and no transfer.</p>
+          <div class="route-stats"><span>💸 <b>Rs. 90</b> est.</span><span>🔄 <b>0</b> transfers</span><span>🚶 <b>2 min</b> walk</span></div>
+          <div class="mini-journey"><span class="journey-point">Gulshan</span><span class="journey-line"></span><span class="journey-point">Clifton</span></div>
+          <button class="outline-btn details-btn">View step-by-step <span>→</span></button><div class="route-details hidden"><ol><li>Walk to the listed boarding stop.</li><li>Take the direct service if one is available.</li><li>Get off at the closest listed stop to your destination.</li></ol><small>Sample journey only. Confirm actual routes before travelling.</small></div>
+        </article>
+      </div>
+      <div class="empty-state hidden" id="emptyState">No sample route matches those settings. Try increasing your budget or allowing another transfer.</div>
+      <div class="budget-notice" id="budgetNotice">🧮 <div><b>Plan your travel budget</b><span>At Rs. 80 each way, an example return journey costs about Rs. 160.</span></div><span class="notice-tag">ESTIMATE</span></div>
+    </section>
+
+    <section class="features-section" id="features">
+      <div class="section-heading"><div><span class="eyebrow">MORE THAN A ROUTE FINDER</span><h2>Your journey, made easier.</h2><p>Small tools that make everyday travel feel simpler.</p></div></div>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon purple">🎙️</div><h3>Just say it</h3><p>Use your voice to enter a starting point and destination.</p><button class="text-btn" id="featureVoice">Try voice search →</button></article>
+        <article class="feature-card"><div class="feature-icon orange">📣</div><h3>Help fellow commuters</h3><p>Share a recent delay, route change, or stop update.</p><button class="text-btn" id="reportOpen">Report an update →</button></article>
+        <article class="feature-card"><div class="feature-icon green">💰</div><h3>Travel on budget</h3><p>Compare example fares and choose a journey that fits your budget.</p><button class="text-btn" id="budgetFocus">Set my budget →</button></article>
+        <article class="feature-card"><div class="feature-icon blue">🧡</div><h3>Comfort comes first</h3><p>Prefer fewer transfers and shorter walks where route data allows.</p><button class="text-btn" id="accessFocus">Adjust preferences →</button></article>
+      </div>
+    </section>
+
+    <section class="updates-section" id="updates">
+      <div class="updates-copy"><span class="eyebrow">COMMUNITY CORNER</span><h2>Know something?<br /><span>Help everyone get there.</span></h2><p>Share what you noticed on your journey. Community reports are labelled clearly and may need confirmation.</p><button class="primary-btn" id="reportOpen2">Share a transport update <span>→</span></button></div>
+      <div class="update-feed">
+        <div class="feed-heading"><h3>Recent community reports</h3><span class="live-pill"><i></i> DEMO FEED</span></div>
+        <article class="feed-item"><span class="feed-icon">⚠️</span><div><b>Possible delay near NIPA</b><p>Example report · Traffic / delay</p><small>Demo content · not verified live information</small></div><span class="feed-time">5m</span></article>
+        <article class="feed-item"><span class="feed-icon">📍</span><div><b>Stop location needs checking</b><p>Example report · Stop update</p><small>Demo content · not verified live information</small></div><span class="feed-time">18m</span></article>
+        <div class="feed-foot">Reports should be recent, respectful, and accurate.</div>
+      </div>
+    </section>
+
+    <section class="safety-banner">
+      <div class="safety-icon">🛡️</div><div><h3>Travel with confidence, your way.</h3><p>Alone, with family or with friends: choose less walking and fewer transfers, then share your plan with someone you trust.</p></div><button class="outline-btn" id="shareBtn">Share trip plan ↗</button>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#"><span class="brand-icon">↗</span><span>waylo<span class="dot">.</span></span></a><span>Find your bus. Find your way.</span><small>Prototype demo · Sample routes, fares, and reports are illustrative, not live transport data.</small></footer>
+
+  <div class="modal-backdrop hidden" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <span class="eyebrow">COMMUNITY UPDATE</span><h2 id="modalTitle">What did you notice?</h2><p>Help other commuters by sharing a recent transport update.</p>
+      <form id="reportForm">
+        <label for="reportType">Type of update</label><select id="reportType"><option>Bus delay</option><option>Route change</option><option>Stop location</option><option>Crowding</option><option>Fare difference</option><option>Accessibility issue</option></select>
+        <label for="reportArea">Area or stop</label><input id="reportArea" placeholder="e.g. NIPA, Gulshan" required />
+        <label for="reportDescription">What happened?</label><textarea id="reportDescription" rows="3" placeholder="Keep it short and factual..." required></textarea>
+        <button class="primary-btn" type="submit">Submit demo report <span>→</span></button>
+      </form>
+      <div id="reportSuccess" class="success-message hidden">✅ Demo report added to this page. In a real app, it would be sent for review.</div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
